@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" searchBarStyle="minimal" id="qG8-i7-dG5">
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="qG8-i7-dG5">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
@@ -48,6 +48,7 @@
                     <navigationItem key="navigationItem" title="News" id="eRO-2L-rZB"/>
                     <connections>
                         <outlet property="newsTableView" destination="nAP-o9-huo" id="6ZX-d6-UJW"/>
+                        <outlet property="searchBar" destination="qG8-i7-dG5" id="wUM-FA-9fh"/>
                         <outlet property="searchDisplayController" destination="nMk-oz-QpM" id="0HE-e5-yLE"/>
                     </connections>
                 </tableViewController>

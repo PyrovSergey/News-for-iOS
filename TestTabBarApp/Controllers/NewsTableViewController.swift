@@ -14,8 +14,10 @@ import SwiftyJSON
 class NewsTableViewController: UITableViewController {
     
     @IBOutlet var newsTableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
-    private let baseUrl: String = "https://newsapi.org/v2/top-headlines"
+    private let baseUrlTopHeadlines: String = "https://newsapi.org/v2/top-headlines"
+    private let baseUrlForRequest: String = "https://newsapi.org/v2/everything"
     private let apiKey: String = "1d48cf2bd8034be59054969db665e62e"
     private let pageSize: String = "100"
     private var newsArray = [Article]()
@@ -27,9 +29,11 @@ class NewsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        newsTableView.keyboardDismissMode = .onDrag
+        searchBar.delegate = self
+        searchBar.placeholder = "Search news"
         newsTableView.register(UINib(nibName: "NewsCell", bundle: nil), forCellReuseIdentifier: "newsCell")
         newsTableView.separatorStyle = .none
-        spiner.startAnimating()
         newsTableView.backgroundView = spiner
         getTopHeadLinesNews()
     }
@@ -56,6 +60,7 @@ class NewsTableViewController: UITableViewController {
         //print("Selected -->> \(newsArray[indexPath.row].articleTitle)")
         performSegue(withIdentifier: "goToArticleView", sender: self)
         newsTableView.deselectRow(at: indexPath, animated: true)
+        self.newsTableView.endEditing(true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -71,13 +76,35 @@ class NewsTableViewController: UITableViewController {
             "pageSize" : pageSize,
             "apiKey" : apiKey
         ]
-        Alamofire.request(baseUrl, method: .get, parameters: params).responseJSON {
+        getRequest(params)
+    }
+    
+    private func getRequestDataNews(request: String) {
+        let params: [String : String] = [
+            "q" : request,
+            "sortBy" : "relevancy",
+            "pageSize" : pageSize,
+            "apiKey" : apiKey
+        ]
+        getRequest(params)
+        
+    }
+    
+    private func getRequest(_ params: [String : String]) {
+        spiner.startAnimating()
+        var url: String?
+        if params.count == 3 {
+            url = baseUrlTopHeadlines
+        } else {
+            url = baseUrlForRequest
+        }
+        Alamofire.request(url!, method: .get, parameters: params).responseJSON {
             response in
             if response.result.isSuccess {
                 print("Success response!")
                 let responseJSON : JSON = JSON(response.result.value!)
                 self.updateUIArticleList(responseJSON)
-                //print(responseJSON)
+                print(responseJSON)
             } else {
                 print("Response in errorr \(response.error!)")
             }
@@ -85,6 +112,7 @@ class NewsTableViewController: UITableViewController {
     }
     
     private func updateUIArticleList(_ responseJSON: JSON) {
+        newsArray.removeAll()
         if let responseArticleArray = responseJSON["articles"].array {
             if !responseArticleArray.isEmpty {
                 for responseArticle in responseArticleArray {
@@ -102,30 +130,14 @@ class NewsTableViewController: UITableViewController {
                     article.sourceImageUrl = "https://besticon-demo.herokuapp.com/icon?url=\(baseSourceUrl!)&size=32..64..64"
                     newsArray.append(article)
                 }
+                newsTableView.separatorStyle = .singleLine
+            } else {
+                newsTableView.separatorStyle = .none
             }
         }
-        newsTableView.separatorStyle = .singleLine
         spiner.stopAnimating()
         newsTableView.reloadData()
     }
-    
-    /*
-     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-     let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-     
-     // Configure the cell...
-     
-     return cell
-     }
-     */
-    
-    /*
-     // Override to support conditional editing of the table view.
-     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the specified item to be editable.
-     return true
-     }
-     */
     
     private func getCurrentCountry() -> String {
         var defaultCountry: String = "us"
@@ -136,6 +148,26 @@ class NewsTableViewController: UITableViewController {
             }
         }
         return defaultCountry
+    }
+}
+
+extension NewsTableViewController: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        if let inputText = searchBar.text {
+            getRequestDataNews(request: inputText)
+            print(inputText)
+        }
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text?.count == 0 {
+            getTopHeadLinesNews()
+            print("Empty search !!!")
+            DispatchQueue.main.async {
+                searchBar.resignFirstResponder()
+            }
+        }
     }
 }
 
