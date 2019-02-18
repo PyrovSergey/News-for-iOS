@@ -70,13 +70,40 @@
                     <view key="view" contentMode="scaleToFill" id="unT-WU-1Qh">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Gyz-2n-JmS">
+                                <rect key="frame" x="132" y="367" width="150" height="2"/>
+                            </progressView>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Iu-qh-nFn">
+                                <rect key="frame" x="0.0" y="64" width="414" height="623"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Gyz-2n-JmS" firstAttribute="centerX" secondItem="unT-WU-1Qh" secondAttribute="centerX" id="IMN-Ap-QMr"/>
+                            <constraint firstItem="Gyz-2n-JmS" firstAttribute="leading" secondItem="unT-WU-1Qh" secondAttribute="leadingMargin" constant="112" id="IVk-ee-pDz"/>
+                            <constraint firstItem="7Iu-qh-nFn" firstAttribute="bottom" secondItem="kGo-WX-7ZB" secondAttribute="bottom" id="RNU-RZ-tP3"/>
+                            <constraint firstItem="7Iu-qh-nFn" firstAttribute="trailing" secondItem="kGo-WX-7ZB" secondAttribute="trailing" id="Rsf-nE-naz"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Gyz-2n-JmS" secondAttribute="trailing" constant="112" id="VqB-AO-lB2"/>
+                            <constraint firstItem="Gyz-2n-JmS" firstAttribute="centerY" secondItem="unT-WU-1Qh" secondAttribute="centerY" id="bWv-PE-ikA"/>
+                            <constraint firstItem="7Iu-qh-nFn" firstAttribute="leading" secondItem="kGo-WX-7ZB" secondAttribute="leading" id="gVP-wl-vWe"/>
+                            <constraint firstItem="7Iu-qh-nFn" firstAttribute="top" secondItem="kGo-WX-7ZB" secondAttribute="top" id="pVK-en-HsW"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="kGo-WX-7ZB"/>
                     </view>
+                    <connections>
+                        <outlet property="progressView" destination="Gyz-2n-JmS" id="RmO-q1-kY4"/>
+                        <outlet property="webView" destination="7Iu-qh-nFn" id="IVo-XM-0MD"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HvE-Ez-AZE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2454" y="-348"/>
+            <point key="canvasLocation" x="2453.6231884057975" y="-348.09782608695656"/>
         </scene>
         <!--Categories-->
         <scene sceneID="cs0-vU-dXK">
