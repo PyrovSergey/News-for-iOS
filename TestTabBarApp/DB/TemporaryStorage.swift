@@ -44,6 +44,7 @@ class TemporaryStorage: NetworkProtocol {
     }
     
     func setCategoryList(result: [Article], categoryName: String) {
+        print("setCategoryList method")
         switch categoryName {
         case "General":
              generalCategory = result

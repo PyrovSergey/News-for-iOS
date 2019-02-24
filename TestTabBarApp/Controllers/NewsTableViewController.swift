@@ -19,6 +19,7 @@ class NewsTableViewController: UITableViewController, NetworkProtocol {
     
     override func viewWillAppear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = false
+        NetworkManager.instace.getTopHeadLinesNews(listener: self)
     }
 
     override func viewDidLoad() {
@@ -30,8 +31,6 @@ class NewsTableViewController: UITableViewController, NetworkProtocol {
         newsTableView.register(UINib(nibName: "NewsCell", bundle: nil), forCellReuseIdentifier: "newsCell")
         newsTableView.separatorStyle = .none
         newsTableView.backgroundView = spiner
-        NetworkManager.instace.getTopHeadLinesNews(listener: self)
-        NetworkManager.instace.getUpdateCategoryLists(listener: TemporaryStorage.instace)
     }
     
     // MARK: - Table view data source

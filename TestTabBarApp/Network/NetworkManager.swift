@@ -13,7 +13,7 @@ import SwiftyJSON
 
 class NetworkManager {
     
-    private let swipeCategory = ["General", "Entertainment", "Sports", "Technology", "Health", "Business"]
+    private let swipeCategory = ["Главное", "Досуг", "Спорт", "Технологии", "Здоровье", "Бизнес"]
     private let baseUrlTopHeadlinesAndCategory: String = "https://newsapi.org/v2/top-headlines"
     private let baseUrlForRequest: String = "https://newsapi.org/v2/everything"
     private let apiKey: String = "1d48cf2bd8034be59054969db665e62e"
@@ -68,10 +68,10 @@ class NetworkManager {
         Alamofire.request(url!, method: .get, parameters: params).responseJSON {
             response in
             if response.result.isSuccess {
-                print("Success response!")
+                //print("Success response!")
                 let responseJSON : JSON = JSON(response.result.value!)
                 self.parsingJsonResult(responseJSON, listener, category)
-                print(responseJSON)
+                //print(responseJSON)
             } else {
                 listener.errorRequest(errorMessage: "Response in errorr \(response.error!)")
                 //print("Response in errorr \(response.error!)")

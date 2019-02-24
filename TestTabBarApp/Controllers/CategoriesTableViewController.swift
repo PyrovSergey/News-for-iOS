@@ -11,9 +11,10 @@ import SwipeMenuViewController
 import Alamofire
 import SwiftyJSON
 
-class CategoriesUIViewController: SwipeMenuViewController {
-    
-    private let arraySwipe = ["General", "Entertainment", "Sports", "Technology", "Health", "Business"]
+class CategoriesUIViewController: SwipeMenuViewController, NetworkProtocol {
+
+    private let arraySwipe = ["Главное", "Досуг", "Спорт", "Технологии", "Здоровье", "Бизнес"]
+    private var arrayControllers = [String : ContentTableViewController]()
     
     var options = SwipeMenuViewOptions()
     var dataCount: Int = 6
@@ -21,11 +22,25 @@ class CategoriesUIViewController: SwipeMenuViewController {
     override func viewDidLoad() {
         arraySwipe.forEach { data in
             let vc = ContentTableViewController()
+            arrayControllers[data] = vc
             vc.title = data
             vc.setNewListCategoryAndUpdateUI(articleArray: TemporaryStorage.instace.getCategoryList(categoryName: data))
             self.addChild(vc)
         }
         super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        NetworkManager.instace.getUpdateCategoryLists(listener: self)
+    }
+    
+    func successRequest(result: [Article], category: String) {
+        let vc = arrayControllers[category]
+        vc?.setNewListCategoryAndUpdateUI(articleArray: result)
+    }
+    
+    func errorRequest(errorMessage: String) {
+        
     }
 
     private func reload() {

@@ -12,9 +12,12 @@ import SDWebImage
 class ContentTableViewController: UITableViewController {
 
     private var newsArray = [Article]()
+    let spiner = UIActivityIndicatorView(style: .gray)
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.backgroundView = spiner
+        spiner.startAnimating()
         tableView.register(UINib(nibName: "NewsCell", bundle: nil), forCellReuseIdentifier: "newsCell")
         tableView.separatorStyle = .none
     }
@@ -22,6 +25,7 @@ class ContentTableViewController: UITableViewController {
     func setNewListCategoryAndUpdateUI(articleArray: [Article]) {
         newsArray = articleArray
         tableView.reloadData()
+        spiner.stopAnimating()
     }
 
     // MARK: - Table view data source
