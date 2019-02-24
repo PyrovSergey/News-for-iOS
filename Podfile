@@ -9,4 +9,5 @@ target 'TestTabBarApp' do
 pod 'SwiftyJSON', '~> 4.0'
 pod 'Alamofire', '~> 4.4'
 pod 'SDWebImage', '~> 4.0'
+pod 'SwipeMenuViewController'
 end

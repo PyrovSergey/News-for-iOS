@@ -7,83 +7,68 @@
 //
 
 import UIKit
+import SwipeMenuViewController
+import Alamofire
+import SwiftyJSON
 
-class CategoriesTableViewController: UITableViewController {
-
+class CategoriesUIViewController: SwipeMenuViewController {
+    
+    private let arraySwipe = ["General", "Entertainment", "Sports", "Technology", "Health", "Business"]
+    
+    var options = SwipeMenuViewOptions()
+    var dataCount: Int = 6
+    
     override func viewDidLoad() {
+        arraySwipe.forEach { data in
+            let vc = ContentTableViewController()
+            vc.title = data
+            vc.setNewListCategoryAndUpdateUI(articleArray: TemporaryStorage.instace.getCategoryList(categoryName: data))
+            self.addChild(vc)
+        }
         super.viewDidLoad()
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+
+    private func reload() {
+        swipeMenuView.reloadData(options: options)
     }
     
-    // MARK: - Table view data source
-    
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+    // MARK: - SwipeMenuViewDelegate
+    override func swipeMenuView(_ swipeMenuView: SwipeMenuView, viewWillSetupAt currentIndex: Int) {
+        super.swipeMenuView(swipeMenuView, viewWillSetupAt: currentIndex)
+        print("will setup SwipeMenuView")
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+    override func swipeMenuView(_ swipeMenuView: SwipeMenuView, viewDidSetupAt currentIndex: Int) {
+        super.swipeMenuView(swipeMenuView, viewDidSetupAt: currentIndex)
+        print("did setup SwipeMenuView")
     }
     
-    /*
-     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-     let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-     
-     // Configure the cell...
-     
-     return cell
-     }
-     */
+    override func swipeMenuView(_ swipeMenuView: SwipeMenuView, willChangeIndexFrom fromIndex: Int, to toIndex: Int) {
+        super.swipeMenuView(swipeMenuView, willChangeIndexFrom: fromIndex, to: toIndex)
+        print("will change from section\(fromIndex + 1)  to section\(toIndex + 1)")
+    }
     
-    /*
-     // Override to support conditional editing of the table view.
-     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the specified item to be editable.
-     return true
-     }
-     */
+    override func swipeMenuView(_ swipeMenuView: SwipeMenuView, didChangeIndexFrom fromIndex: Int, to toIndex: Int) {
+        super.swipeMenuView(swipeMenuView, didChangeIndexFrom: fromIndex, to: toIndex)
+        print("did change from section\(fromIndex + 1)  to section\(toIndex + 1)")
+    }
     
-    /*
-     // Override to support editing the table view.
-     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-     if editingStyle == .delete {
-     // Delete the row from the data source
-     tableView.deleteRows(at: [indexPath], with: .fade)
-     } else if editingStyle == .insert {
-     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-     }
-     }
-     */
     
-    /*
-     // Override to support rearranging the table view.
-     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-     
-     }
-     */
+    // MARK - SwipeMenuViewDataSource
+    override func numberOfPages(in swipeMenuView: SwipeMenuView) -> Int {
+        return dataCount
+    }
     
-    /*
-     // Override to support conditional rearranging of the table view.
-     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the item to be re-orderable.
-     return true
-     }
-     */
+    override func swipeMenuView(_ swipeMenuView: SwipeMenuView, titleForPageAt index: Int) -> String {
+        return children[index].title ?? ""
+    }
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
+    override func swipeMenuView(_ swipeMenuView: SwipeMenuView, viewControllerForPageAt index: Int) -> UIViewController {
+        let vc = children[index]
+        vc.didMove(toParent: self)
+        return vc
+    }
 }
+
+
 

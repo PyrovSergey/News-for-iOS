@@ -4,23 +4,27 @@ PODS:
     - SDWebImage/Core (= 4.4.5)
   - SDWebImage/Core (4.4.5)
   - SwiftyJSON (4.2.0)
+  - SwipeMenuViewController (3.0.0)
 
 DEPENDENCIES:
   - Alamofire (~> 4.4)
   - SDWebImage (~> 4.0)
   - SwiftyJSON (~> 4.0)
+  - SwipeMenuViewController
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - SDWebImage
     - SwiftyJSON
+    - SwipeMenuViewController
 
 SPEC CHECKSUMS:
   Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
   SDWebImage: ecc03494e973b93b80213649d32175f8d2d17d4d
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
+  SwipeMenuViewController: 572a6fcd7fa95c3d744c760d5e836896817c5735
 
-PODFILE CHECKSUM: 40bc1412100651701623933f4bf9d8863b5923ad
+PODFILE CHECKSUM: 2bd69f59931db60951ee3d50b7446485295b4667
 
 COCOAPODS: 1.5.3

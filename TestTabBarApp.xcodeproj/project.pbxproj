@@ -20,6 +20,11 @@
 		95062A78221723510044DC33 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95062A77221723510044DC33 /* Article.swift */; };
 		950E5FC122183D7000B022F9 /* news-placeholder.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 950E5FC022183D6F00B022F9 /* news-placeholder.jpg */; };
 		950E5FC32218757400B022F9 /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950E5FC22218757400B022F9 /* ArticleViewController.swift */; };
+		959AE968221B1ACB005BCB11 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959AE967221B1ACB005BCB11 /* ContentViewController.swift */; };
+		959AE96A221B2753005BCB11 /* ContentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959AE969221B2753005BCB11 /* ContentTableViewController.swift */; };
+		95C20C672222AF750009F8AF /* TemporaryStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C20C662222AF750009F8AF /* TemporaryStorage.swift */; };
+		95D4D0FC221C479C0030BD11 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D4D0FB221C479C0030BD11 /* NetworkManager.swift */; };
+		95F743DF2221F9510007F5EE /* NetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F743DE2221F9510007F5EE /* NetworkProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +43,11 @@
 		95062A77221723510044DC33 /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		950E5FC022183D6F00B022F9 /* news-placeholder.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "news-placeholder.jpg"; sourceTree = "<group>"; };
 		950E5FC22218757400B022F9 /* ArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewController.swift; sourceTree = "<group>"; };
+		959AE967221B1ACB005BCB11 /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
+		959AE969221B2753005BCB11 /* ContentTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentTableViewController.swift; sourceTree = "<group>"; };
+		95C20C662222AF750009F8AF /* TemporaryStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryStorage.swift; sourceTree = "<group>"; };
+		95D4D0FB221C479C0030BD11 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		95F743DE2221F9510007F5EE /* NetworkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProtocol.swift; sourceTree = "<group>"; };
 		E34385229C533D075DEBC7E0 /* Pods-TestTabBarApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestTabBarApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-TestTabBarApp/Pods-TestTabBarApp.release.xcconfig"; sourceTree = "<group>"; };
 		EDA5310BBB0F589CB9C33E59 /* Pods_TestTabBarApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestTabBarApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -93,6 +103,8 @@
 			isa = PBXGroup;
 			children = (
 				95062A582216FC140044DC33 /* AppDelegate.swift */,
+				95C20C682222B0040009F8AF /* DB */,
+				95D4D0FD221C47A70030BD11 /* Network */,
 				95062A79221724520044DC33 /* Model */,
 				95062A6E221707E20044DC33 /* Controllers */,
 				95062A6F221708080044DC33 /* View */,
@@ -108,6 +120,8 @@
 			children = (
 				95062A5A2216FC140044DC33 /* NewsTableViewController.swift */,
 				95062A5C2216FC140044DC33 /* CategoriesTableViewController.swift */,
+				959AE969221B2753005BCB11 /* ContentTableViewController.swift */,
+				959AE967221B1ACB005BCB11 /* ContentViewController.swift */,
 				95062A6C2216FE310044DC33 /* BookmarksTableViewController.swift */,
 				950E5FC22218757400B022F9 /* ArticleViewController.swift */,
 			);
@@ -139,6 +153,23 @@
 				95062A77221723510044DC33 /* Article.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		95C20C682222B0040009F8AF /* DB */ = {
+			isa = PBXGroup;
+			children = (
+				95C20C662222AF750009F8AF /* TemporaryStorage.swift */,
+			);
+			path = DB;
+			sourceTree = "<group>";
+		};
+		95D4D0FD221C47A70030BD11 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				95D4D0FB221C479C0030BD11 /* NetworkManager.swift */,
+				95F743DE2221F9510007F5EE /* NetworkProtocol.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -246,6 +277,7 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/SwipeMenuViewController/SwipeMenuViewController.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
@@ -254,6 +286,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeMenuViewController.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -267,11 +300,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				959AE968221B1ACB005BCB11 /* ContentViewController.swift in Sources */,
+				95C20C672222AF750009F8AF /* TemporaryStorage.swift in Sources */,
+				959AE96A221B2753005BCB11 /* ContentTableViewController.swift in Sources */,
 				95062A7622171FC50044DC33 /* CustomNewsCell.swift in Sources */,
 				95062A5D2216FC140044DC33 /* CategoriesTableViewController.swift in Sources */,
+				95D4D0FC221C479C0030BD11 /* NetworkManager.swift in Sources */,
 				950E5FC32218757400B022F9 /* ArticleViewController.swift in Sources */,
 				95062A78221723510044DC33 /* Article.swift in Sources */,
 				95062A6D2216FE310044DC33 /* BookmarksTableViewController.swift in Sources */,
+				95F743DF2221F9510007F5EE /* NetworkProtocol.swift in Sources */,
 				95062A592216FC140044DC33 /* AppDelegate.swift in Sources */,
 				95062A5B2216FC140044DC33 /* NewsTableViewController.swift in Sources */,
 			);
