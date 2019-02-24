@@ -68,6 +68,10 @@ class CategoriesUIViewController: SwipeMenuViewController {
         vc.didMove(toParent: self)
         return vc
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        self.performSegue(withIdentifier: "goToArticleView", sender: self)
+    }
 }
 
 

@@ -14,6 +14,7 @@ class ArticleViewController: UIViewController, WKNavigationDelegate {
     var articleUrl: String?
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var webView: WKWebView!
+    @IBOutlet weak var progressLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,11 +33,18 @@ class ArticleViewController: UIViewController, WKNavigationDelegate {
         if Float(webView.estimatedProgress) == 1.0 {
             webView.isHidden = false
             progressView.isHidden = true
+            progressLabel.isHidden = true
         } 
         if keyPath == "estimatedProgress" {
             print(Float(webView.estimatedProgress))
+            let progress = Float(webView.estimatedProgress)
+            let result = (progress * 100.0)
+            progressLabel.text = String("\(Int(result))%")
             progressView!.progress = Float(webView.estimatedProgress)
         }
     }
-
+    @IBAction func clickButton(_ sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
+    }
+    
 }
