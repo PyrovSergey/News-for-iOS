@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (4.8.1)
+  - DateToolsSwift (4.0.0)
   - SDWebImage (4.4.5):
     - SDWebImage/Core (= 4.4.5)
   - SDWebImage/Core (4.4.5)
@@ -8,6 +9,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 4.4)
+  - DateToolsSwift
   - SDWebImage (~> 4.0)
   - SwiftyJSON (~> 4.0)
   - SwipeMenuViewController
@@ -15,16 +17,18 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
+    - DateToolsSwift
     - SDWebImage
     - SwiftyJSON
     - SwipeMenuViewController
 
 SPEC CHECKSUMS:
   Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
+  DateToolsSwift: 875d97ff9e3a5d54abdd67a269b3f51c757b71ab
   SDWebImage: ecc03494e973b93b80213649d32175f8d2d17d4d
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
   SwipeMenuViewController: 572a6fcd7fa95c3d744c760d5e836896817c5735
 
-PODFILE CHECKSUM: 2bd69f59931db60951ee3d50b7446485295b4667
+PODFILE CHECKSUM: 07d2e60d0dd52ab7df9226718599985640e15acb
 
 COCOAPODS: 1.5.3

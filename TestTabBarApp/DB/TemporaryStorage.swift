@@ -8,7 +8,7 @@
 
 import Foundation
 
-class TemporaryStorage: NetworkProtocol {
+class TemporaryStorage {
     
     private var generalCategory = [Article]()
     private var entertainmentCategory = [Article]()
@@ -44,7 +44,7 @@ class TemporaryStorage: NetworkProtocol {
     }
     
     func setCategoryList(result: [Article], categoryName: String) {
-        print("setCategoryList method")
+        //print("setCategoryList method")
         switch categoryName {
         case "General":
              generalCategory = result
@@ -61,13 +61,5 @@ class TemporaryStorage: NetworkProtocol {
         default:
             mainNewsCategory = result
         }
-    }
-    
-    func successRequest(result: [Article], category: String) {
-        
-    }
-    
-    func errorRequest(errorMessage: String) {
-        
     }
 }

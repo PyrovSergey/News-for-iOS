@@ -9,11 +9,12 @@
 import Foundation
 import Alamofire
 import SwiftyJSON
+import DateToolsSwift
 
 
 class NetworkManager {
     
-    private let swipeCategory = ["Главное", "Досуг", "Спорт", "Технологии", "Здоровье", "Бизнес"]
+    private let swipeCategory = ["General", "Intertainment", "Sport", "Technology", "Health", "Business"]
     private let baseUrlTopHeadlinesAndCategory: String = "https://newsapi.org/v2/top-headlines"
     private let baseUrlForRequest: String = "https://newsapi.org/v2/everything"
     private let apiKey: String = "1d48cf2bd8034be59054969db665e62e"
@@ -92,7 +93,14 @@ class NetworkManager {
                     article.articleImageUrl = responseArticle["urlToImage"].string ?? ""
                     article.articleUrl = responseArticle["url"].string ?? ""
                     //print("article.articleUrl is -->> \(article.articleUrl)")
-                    article.articlePublicationTime = responseArticle["publishedAt"].string ?? ""
+                    
+                    
+                    let publishedAtString = responseArticle["publishedAt"].string ?? ""
+                    //getDateFromApi(date: publishedAtString)
+        
+                    //print("Дата статьи -->> \(publishedAtDate)")
+                    article.articlePublicationTime = getDateFromApi(date: publishedAtString).timeAgoSinceNow
+                    
                     let newsUrl: URL = URL(string: article.articleUrl)!
                     let baseSourceUrl = newsUrl.host
                     article.sourceImageUrl = "https://besticon-demo.herokuapp.com/icon?url=\(baseSourceUrl!)&size=32..64..64"
@@ -100,11 +108,11 @@ class NetworkManager {
                 }
             }
         }
-        listener.successRequest(result: resultArrayArticles, category: category)
         TemporaryStorage.instace.setCategoryList(result: resultArrayArticles, categoryName: category)
+        listener.successRequest(result: resultArrayArticles, category: category)
     }
     
-    func getCurrentCountry() -> String {
+    private func getCurrentCountry() -> String {
         var defaultCountry: String = "us"
         let arrayCountry = ["ae", "ar", "at", "au", "be", "bg", "br", "ca", "ch", "cn", "co", "cu", "cz", "de", "eg", "fr", "gb", "gr", "hk", "hu", "id", "ie", "il", "in", "it", "jp", "kr", "lt", "lv", "ma", "mx", "my", "ng", "nl", "no", "nz", "ph", "pl", "pt", "ro", "rs", "ru", "sa", "se", "sg", "si", "sk", "th", "tr", "tw", "ua", "us", "ve", "za"]
         if let countryCode = (Locale.current as NSLocale).object(forKey: .countryCode) as? String {
@@ -113,6 +121,32 @@ class NetworkManager {
             }
         }
         return defaultCountry
+    }
+    
+    private func getDateFromApi(date: String) -> Date {
+        var parsingString = date
+        parsingString.removeLast()
+        let parsingDateAndTime = parsingString.components(separatedBy: "T")
+        let parsingDate = parsingDateAndTime[0]
+        let parsingTime = parsingDateAndTime[1]
+        let date = parsingDate.components(separatedBy: "-")
+        let time = parsingTime.components(separatedBy: ":")
+        let year = date[0]
+        let mounth = date[1]
+        let day = date[2]
+        let hours = time[0]
+        let min = time[1]
+        let sec = time[2]
+        var components = DateComponents()
+        components.day = Int(day)!
+        components.month = Int(mounth)!
+        components.year = Int(year)!
+        components.hour = Int(hours)!
+        components.minute = Int(min)!
+        components.second = Int(sec)!
+        components.timeZone = TimeZone(abbreviation: "UTC")
+        let datePublishedAt = Calendar.current.date(from: components as DateComponents)
+        return datePublishedAt!
     }
 }
 

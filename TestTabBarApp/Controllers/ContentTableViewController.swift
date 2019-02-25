@@ -45,22 +45,11 @@ class ContentTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //print("Selected -->> \(newsArray[indexPath.row].articleTitle)")
-//        performSegue(withIdentifier: "goToArticleView", sender: self)
-//        tableView.deselectRow(at: indexPath, animated: true)
-//        self.tableView.endEditing(true)
         print("\(newsArray[indexPath.row].articleUrl)")
         if let storyboard = self.parent?.storyboard {
             let newViewController = storyboard.instantiateViewController(withIdentifier: "ArticleViewController") as? ArticleViewController
             newViewController?.articleUrl = newsArray[indexPath.row].articleUrl
             self.present(newViewController!, animated: true, completion: nil)
         }
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        let destintionVC = segue.destination as! ArticleViewController
-//        if let indexPath = tableView.indexPathForSelectedRow {
-//            destintionVC.articleUrl = newsArray[indexPath.row].articleUrl
-//        }
     }
 }

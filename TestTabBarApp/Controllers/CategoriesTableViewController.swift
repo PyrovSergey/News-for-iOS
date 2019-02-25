@@ -13,7 +13,7 @@ import SwiftyJSON
 
 class CategoriesUIViewController: SwipeMenuViewController, NetworkProtocol {
 
-    private let arraySwipe = ["Главное", "Досуг", "Спорт", "Технологии", "Здоровье", "Бизнес"]
+    private let arraySwipe = ["General", "Intertainment", "Sport", "Technology", "Health", "Business"]
     private var arrayControllers = [String : ContentTableViewController]()
     
     var options = SwipeMenuViewOptions()
