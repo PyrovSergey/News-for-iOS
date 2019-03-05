@@ -76,6 +76,12 @@
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Gyz-2n-JmS">
                                 <rect key="frame" x="132" y="367" width="150" height="2"/>
                             </progressView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2cE-yh-nJA">
+                                <rect key="frame" x="160" y="333" width="94" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Iu-qh-nFn">
                                 <rect key="frame" x="0.0" y="64" width="414" height="672"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -84,12 +90,6 @@
                                     <wkPreferences key="preferences"/>
                                 </wkWebViewConfiguration>
                             </wkWebView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2cE-yh-nJA">
-                                <rect key="frame" x="180" y="333" width="54" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ocM-yh-TEt">
                                 <rect key="frame" x="0.0" y="20" width="414" height="44"/>
                                 <items>
@@ -97,6 +97,11 @@
                                         <barButtonItem key="leftBarButtonItem" title="Back" id="iMa-ut-0XA">
                                             <connections>
                                                 <action selector="clickButton:" destination="wrF-X3-PMb" id="6Mp-Di-sfS"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="15g-1z-CsM">
+                                            <connections>
+                                                <action selector="clickOptions:" destination="wrF-X3-PMb" id="Ru7-KJ-cy6"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -107,10 +112,10 @@
                         <constraints>
                             <constraint firstItem="ocM-yh-TEt" firstAttribute="trailing" secondItem="kGo-WX-7ZB" secondAttribute="trailing" id="5fB-HG-srJ"/>
                             <constraint firstItem="7Iu-qh-nFn" firstAttribute="top" secondItem="ocM-yh-TEt" secondAttribute="bottom" id="6oj-3u-ut1"/>
-                            <constraint firstItem="kGo-WX-7ZB" firstAttribute="trailing" secondItem="2cE-yh-nJA" secondAttribute="trailing" constant="180" id="Dt2-l8-fw0"/>
+                            <constraint firstItem="kGo-WX-7ZB" firstAttribute="trailing" secondItem="2cE-yh-nJA" secondAttribute="trailing" constant="160" id="Dt2-l8-fw0"/>
                             <constraint firstItem="Gyz-2n-JmS" firstAttribute="centerX" secondItem="unT-WU-1Qh" secondAttribute="centerX" id="IMN-Ap-QMr"/>
                             <constraint firstItem="Gyz-2n-JmS" firstAttribute="leading" secondItem="unT-WU-1Qh" secondAttribute="leadingMargin" constant="112" id="IVk-ee-pDz"/>
-                            <constraint firstItem="2cE-yh-nJA" firstAttribute="leading" secondItem="kGo-WX-7ZB" secondAttribute="leading" constant="180" id="NO8-3Y-2kO"/>
+                            <constraint firstItem="2cE-yh-nJA" firstAttribute="leading" secondItem="kGo-WX-7ZB" secondAttribute="leading" constant="160" id="NO8-3Y-2kO"/>
                             <constraint firstItem="7Iu-qh-nFn" firstAttribute="bottom" secondItem="kGo-WX-7ZB" secondAttribute="bottom" id="NsR-Bf-kjy"/>
                             <constraint firstItem="ocM-yh-TEt" firstAttribute="leading" secondItem="kGo-WX-7ZB" secondAttribute="leading" id="Q3z-jv-PGU"/>
                             <constraint firstItem="ocM-yh-TEt" firstAttribute="top" secondItem="kGo-WX-7ZB" secondAttribute="top" id="Rql-rQ-Nef"/>
@@ -206,6 +211,6 @@
         <image name="second" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="JAY-Eu-9vI"/>
+        <segue reference="tgz-90-sdo"/>
     </inferredMetricsTieBreakers>
 </document>

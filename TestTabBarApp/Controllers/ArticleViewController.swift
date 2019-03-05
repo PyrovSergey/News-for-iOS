@@ -44,7 +44,14 @@ class ArticleViewController: UIViewController, WKNavigationDelegate {
         }
     }
     @IBAction func clickButton(_ sender: UIBarButtonItem) {
-        dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func clickOptions(_ sender: UIBarButtonItem) {
+        print("clickOptions")
+        let url = NSURL(string: articleUrl!)!
+        let items = [url]
+        let ac = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        present(ac, animated: true)
+    }
 }
