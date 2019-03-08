@@ -11,4 +11,6 @@ pod 'Alamofire', '~> 4.4'
 pod 'SDWebImage', '~> 4.0'
 pod 'SwipeMenuViewController'
 pod 'DateToolsSwift'
+pod 'RealmSwift'
+pod 'SwipeCellKit'
 end

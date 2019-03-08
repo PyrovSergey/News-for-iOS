@@ -48,7 +48,7 @@ class ContentTableViewController: UITableViewController {
         print("\(newsArray[indexPath.row].articleUrl)")
         if let storyboard = self.parent?.storyboard {
             let newViewController = storyboard.instantiateViewController(withIdentifier: "ArticleViewController") as? ArticleViewController
-            newViewController?.articleUrl = newsArray[indexPath.row].articleUrl
+            newViewController?.article = newsArray[indexPath.row]
             self.present(newViewController!, animated: true, completion: nil)
         }
     }

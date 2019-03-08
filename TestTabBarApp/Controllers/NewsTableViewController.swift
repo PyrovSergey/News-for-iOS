@@ -51,7 +51,7 @@ class NewsTableViewController: UITableViewController, NetworkProtocol {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //print("Selected -->> \(newsArray[indexPath.row].articleTitle)")
-        performSegue(withIdentifier: "goToArticleView", sender: self)
+        performSegue(withIdentifier: "goToArticleViewFromNews", sender: self)
         newsTableView.deselectRow(at: indexPath, animated: true)
         self.newsTableView.endEditing(true)
     }
@@ -59,7 +59,7 @@ class NewsTableViewController: UITableViewController, NetworkProtocol {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destintionVC = segue.destination as! ArticleViewController
         if let indexPath = tableView.indexPathForSelectedRow {
-            destintionVC.articleUrl = newsArray[indexPath.row].articleUrl
+            destintionVC.article = newsArray[indexPath.row]
         }
     }
     

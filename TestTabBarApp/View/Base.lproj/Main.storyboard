@@ -28,7 +28,7 @@
                             </scopeButtonTitles>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="newsCell" id="2PP-rL-w8p">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="newsCell" id="2PP-rL-w8p" customClass="CustomNewsCell" customModule="TestTabBarApp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="84" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2PP-rL-w8p" id="XYb-Wb-dRo">
@@ -36,7 +36,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="wrF-X3-PMb" kind="show" identifier="goToArticleView" id="tgz-90-sdo"/>
+                                    <segue destination="wrF-X3-PMb" kind="show" identifier="goToArticleViewFromNews" id="tgz-90-sdo"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -45,7 +45,7 @@
                             <outlet property="delegate" destination="dPX-fN-7ZR" id="rEU-Kh-ujq"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="News" image="second" id="00e-yc-Iq5"/>
+                    <tabBarItem key="tabBarItem" title="News" image="second" id="aX8-e1-yqQ"/>
                     <navigationItem key="navigationItem" title="News" id="eRO-2L-rZB"/>
                     <connections>
                         <outlet property="newsTableView" destination="nAP-o9-huo" id="6ZX-d6-UJW"/>
@@ -63,7 +63,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="697" y="-335"/>
+            <point key="canvasLocation" x="1602.8985507246377" y="-335.054347826087"/>
         </scene>
         <!--Article View Controller-->
         <scene sceneID="NZG-g3-MMh">
@@ -73,15 +73,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Gyz-2n-JmS">
-                                <rect key="frame" x="132" y="367" width="150" height="2"/>
-                            </progressView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2cE-yh-nJA">
-                                <rect key="frame" x="160" y="333" width="94" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Iu-qh-nFn">
                                 <rect key="frame" x="0.0" y="64" width="414" height="672"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -90,41 +81,49 @@
                                     <wkPreferences key="preferences"/>
                                 </wkWebViewConfiguration>
                             </wkWebView>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Gyz-2n-JmS">
+                                <rect key="frame" x="107" y="367" width="200" height="2"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="cOY-yt-9Pu"/>
+                                </constraints>
+                            </progressView>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ocM-yh-TEt">
                                 <rect key="frame" x="0.0" y="20" width="414" height="44"/>
                                 <items>
                                     <navigationItem id="a7k-lR-Ird">
                                         <barButtonItem key="leftBarButtonItem" title="Back" id="iMa-ut-0XA">
                                             <connections>
-                                                <action selector="clickButton:" destination="wrF-X3-PMb" id="6Mp-Di-sfS"/>
+                                                <action selector="clickBackButton:" destination="wrF-X3-PMb" id="h2T-9K-Yi2"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="15g-1z-CsM">
+                                        <barButtonItem key="rightBarButtonItem" systemItem="bookmarks" id="15g-1z-CsM">
                                             <connections>
-                                                <action selector="clickOptions:" destination="wrF-X3-PMb" id="Ru7-KJ-cy6"/>
+                                                <action selector="clickAddToBookmarksButton:" destination="wrF-X3-PMb" id="CVX-g5-Sum"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" highlighted="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2cE-yh-nJA">
+                                <rect key="frame" x="207" y="345.66666666666669" width="0.0" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="ocM-yh-TEt" firstAttribute="trailing" secondItem="kGo-WX-7ZB" secondAttribute="trailing" id="5fB-HG-srJ"/>
-                            <constraint firstItem="7Iu-qh-nFn" firstAttribute="top" secondItem="ocM-yh-TEt" secondAttribute="bottom" id="6oj-3u-ut1"/>
-                            <constraint firstItem="kGo-WX-7ZB" firstAttribute="trailing" secondItem="2cE-yh-nJA" secondAttribute="trailing" constant="160" id="Dt2-l8-fw0"/>
-                            <constraint firstItem="Gyz-2n-JmS" firstAttribute="centerX" secondItem="unT-WU-1Qh" secondAttribute="centerX" id="IMN-Ap-QMr"/>
-                            <constraint firstItem="Gyz-2n-JmS" firstAttribute="leading" secondItem="unT-WU-1Qh" secondAttribute="leadingMargin" constant="112" id="IVk-ee-pDz"/>
-                            <constraint firstItem="2cE-yh-nJA" firstAttribute="leading" secondItem="kGo-WX-7ZB" secondAttribute="leading" constant="160" id="NO8-3Y-2kO"/>
-                            <constraint firstItem="7Iu-qh-nFn" firstAttribute="bottom" secondItem="kGo-WX-7ZB" secondAttribute="bottom" id="NsR-Bf-kjy"/>
-                            <constraint firstItem="ocM-yh-TEt" firstAttribute="leading" secondItem="kGo-WX-7ZB" secondAttribute="leading" id="Q3z-jv-PGU"/>
-                            <constraint firstItem="ocM-yh-TEt" firstAttribute="top" secondItem="kGo-WX-7ZB" secondAttribute="top" id="Rql-rQ-Nef"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Gyz-2n-JmS" secondAttribute="trailing" constant="112" id="VqB-AO-lB2"/>
-                            <constraint firstItem="Gyz-2n-JmS" firstAttribute="centerY" secondItem="unT-WU-1Qh" secondAttribute="centerY" id="bWv-PE-ikA"/>
-                            <constraint firstItem="2cE-yh-nJA" firstAttribute="top" secondItem="ocM-yh-TEt" secondAttribute="bottom" constant="269" id="cuM-vE-0jj"/>
-                            <constraint firstItem="7Iu-qh-nFn" firstAttribute="leading" secondItem="kGo-WX-7ZB" secondAttribute="leading" id="h0x-d7-7ax"/>
-                            <constraint firstItem="7Iu-qh-nFn" firstAttribute="trailing" secondItem="kGo-WX-7ZB" secondAttribute="trailing" id="ltB-Py-Wmh"/>
-                            <constraint firstItem="Gyz-2n-JmS" firstAttribute="top" secondItem="2cE-yh-nJA" secondAttribute="bottom" constant="13" id="zDC-8y-ZcD"/>
+                            <constraint firstItem="2cE-yh-nJA" firstAttribute="centerX" secondItem="unT-WU-1Qh" secondAttribute="centerX" id="Ac0-eN-aBb"/>
+                            <constraint firstItem="2cE-yh-nJA" firstAttribute="centerY" secondItem="unT-WU-1Qh" secondAttribute="centerY" constant="-22.5" id="GVy-Cu-TDj"/>
+                            <constraint firstItem="7Iu-qh-nFn" firstAttribute="top" secondItem="ocM-yh-TEt" secondAttribute="bottom" id="HiZ-pY-Mch"/>
+                            <constraint firstItem="7Iu-qh-nFn" firstAttribute="trailing" secondItem="kGo-WX-7ZB" secondAttribute="trailing" id="JDp-Rs-dpr"/>
+                            <constraint firstItem="ocM-yh-TEt" firstAttribute="trailing" secondItem="kGo-WX-7ZB" secondAttribute="trailing" id="KtH-Zu-YaR"/>
+                            <constraint firstItem="Gyz-2n-JmS" firstAttribute="centerX" secondItem="unT-WU-1Qh" secondAttribute="centerX" id="NM7-9c-zq3"/>
+                            <constraint firstItem="7Iu-qh-nFn" firstAttribute="leading" secondItem="kGo-WX-7ZB" secondAttribute="leading" id="d6d-GQ-Yng"/>
+                            <constraint firstItem="7Iu-qh-nFn" firstAttribute="bottom" secondItem="kGo-WX-7ZB" secondAttribute="bottom" id="gcW-u2-Wfc"/>
+                            <constraint firstItem="ocM-yh-TEt" firstAttribute="leading" secondItem="kGo-WX-7ZB" secondAttribute="leading" id="pgS-zx-swr"/>
+                            <constraint firstItem="Gyz-2n-JmS" firstAttribute="centerY" secondItem="unT-WU-1Qh" secondAttribute="centerY" id="tYt-PM-BE0"/>
+                            <constraint firstItem="ocM-yh-TEt" firstAttribute="top" secondItem="kGo-WX-7ZB" secondAttribute="top" id="y9r-Vo-mUG"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="kGo-WX-7ZB"/>
                     </view>
@@ -136,7 +135,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HvE-Ez-AZE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1586.9565217391305" y="357.88043478260875"/>
+            <point key="canvasLocation" x="2596.875" y="357.04225352112678"/>
         </scene>
         <!--Bookmarks-->
         <scene sceneID="nrd-9G-8Zi">
@@ -147,7 +146,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="newsCell" id="PTF-uX-0EH">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="swipeNewsCell" id="PTF-uX-0EH" customClass="SwipeCustomNewsCell" customModule="TestTabBarApp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PTF-uX-0EH" id="GzM-FY-cgg">
@@ -161,11 +160,15 @@
                             <outlet property="delegate" destination="J99-NL-CwE" id="bem-uw-RIJ"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Bookmarks" image="second" id="bad-Qu-t59"/>
+                    <tabBarItem key="tabBarItem" title="Bookmarks" image="second" id="wbB-31-ASs"/>
+                    <navigationItem key="navigationItem" title="Bookmarks" id="29H-rL-8Ql"/>
+                    <connections>
+                        <segue destination="wrF-X3-PMb" kind="show" identifier="goToArticleViewFromBookmarks" id="tRI-kT-xxt"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ggd-q8-P32" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="696" y="1070"/>
+            <point key="canvasLocation" x="1602.8985507246377" y="1069.5652173913045"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -177,14 +180,14 @@
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
-                        <segue destination="dPX-fN-7ZR" kind="relationship" relationship="viewControllers" id="8mV-hn-jaH"/>
-                        <segue destination="QIj-a6-3hP" kind="relationship" relationship="viewControllers" id="n0q-Ar-X76"/>
-                        <segue destination="J99-NL-CwE" kind="relationship" relationship="viewControllers" id="hOK-ja-cxH"/>
+                        <segue destination="dPX-fN-7ZR" kind="relationship" relationship="viewControllers" id="g1U-XF-Wdc"/>
+                        <segue destination="QIj-a6-3hP" kind="relationship" relationship="viewControllers" id="BOe-kN-wEg"/>
+                        <segue destination="J99-NL-CwE" kind="relationship" relationship="viewControllers" id="vCp-8B-1lE"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-134" y="358"/>
+            <point key="canvasLocation" x="601" y="358"/>
         </scene>
         <!--Category-->
         <scene sceneID="cvk-n6-7Ql">
@@ -196,21 +199,21 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="Wr4-24-BRE"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Category" image="second" id="fX8-Lu-Mqi"/>
+                    <tabBarItem key="tabBarItem" title="Categories" image="second" id="x3z-d5-7qj"/>
                     <navigationItem key="navigationItem" title="Category" id="qVv-kH-ZZU"/>
                     <connections>
-                        <segue destination="wrF-X3-PMb" kind="show" identifier="goToArticleView" id="JAY-Eu-9vI"/>
+                        <segue destination="wrF-X3-PMb" kind="show" identifier="goToArticleViewFromCategories" id="JAY-Eu-9vI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oXE-gb-2ef" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="696" y="358"/>
+            <point key="canvasLocation" x="1602.8985507246377" y="357.88043478260875"/>
         </scene>
     </scenes>
     <resources>
         <image name="second" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="tgz-90-sdo"/>
+        <segue reference="tRI-kT-xxt"/>
     </inferredMetricsTieBreakers>
 </document>

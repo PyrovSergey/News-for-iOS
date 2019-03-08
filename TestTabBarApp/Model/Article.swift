@@ -7,12 +7,13 @@
 //
 
 import Foundation
+import RealmSwift
 
-class Article {
-    var sourceTitle: String = ""
-    var sourceImageUrl: String = ""
-    var articleTitle: String = ""
-    var articleImageUrl: String = ""
-    var articleUrl: String = ""
-    var articlePublicationTime: String = ""
+class Article: Object {
+    @objc dynamic var sourceTitle: String = ""
+    @objc dynamic var sourceImageUrl: String = ""
+    @objc dynamic var articleTitle: String = ""
+    @objc dynamic var articleImageUrl: String = ""
+    @objc dynamic var articleUrl: String = ""
+    @objc dynamic var articlePublicationTime: String = ""
 }

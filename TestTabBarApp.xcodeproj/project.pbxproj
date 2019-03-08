@@ -23,6 +23,8 @@
 		959AE96A221B2753005BCB11 /* ContentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959AE969221B2753005BCB11 /* ContentTableViewController.swift */; };
 		95C20C672222AF750009F8AF /* TemporaryStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C20C662222AF750009F8AF /* TemporaryStorage.swift */; };
 		95D4D0FC221C479C0030BD11 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D4D0FB221C479C0030BD11 /* NetworkManager.swift */; };
+		95E9F7622232BE4C00696271 /* SwipeCustomNewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E9F7602232BE4C00696271 /* SwipeCustomNewsCell.swift */; };
+		95E9F7632232BE4C00696271 /* SwipeCustomNewsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95E9F7612232BE4C00696271 /* SwipeCustomNewsCell.xib */; };
 		95F743DF2221F9510007F5EE /* NetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F743DE2221F9510007F5EE /* NetworkProtocol.swift */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +47,8 @@
 		959AE969221B2753005BCB11 /* ContentTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentTableViewController.swift; sourceTree = "<group>"; };
 		95C20C662222AF750009F8AF /* TemporaryStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryStorage.swift; sourceTree = "<group>"; };
 		95D4D0FB221C479C0030BD11 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		95E9F7602232BE4C00696271 /* SwipeCustomNewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCustomNewsCell.swift; sourceTree = "<group>"; };
+		95E9F7612232BE4C00696271 /* SwipeCustomNewsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SwipeCustomNewsCell.xib; sourceTree = "<group>"; };
 		95F743DE2221F9510007F5EE /* NetworkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProtocol.swift; sourceTree = "<group>"; };
 		E34385229C533D075DEBC7E0 /* Pods-TestTabBarApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestTabBarApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-TestTabBarApp/Pods-TestTabBarApp.release.xcconfig"; sourceTree = "<group>"; };
 		EDA5310BBB0F589CB9C33E59 /* Pods_TestTabBarApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestTabBarApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -131,6 +135,7 @@
 				95062A5E2216FC140044DC33 /* Main.storyboard */,
 				95062A632216FC160044DC33 /* LaunchScreen.storyboard */,
 				95062A72221711E00044DC33 /* Custom Cell */,
+				95E9F7642232BE5B00696271 /* Swipe Custom Cell */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -167,6 +172,15 @@
 				95F743DE2221F9510007F5EE /* NetworkProtocol.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		95E9F7642232BE5B00696271 /* Swipe Custom Cell */ = {
+			isa = PBXGroup;
+			children = (
+				95E9F7602232BE4C00696271 /* SwipeCustomNewsCell.swift */,
+				95E9F7612232BE4C00696271 /* SwipeCustomNewsCell.xib */,
+			);
+			path = "Swipe Custom Cell";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -229,6 +243,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95E9F7632232BE4C00696271 /* SwipeCustomNewsCell.xib in Resources */,
 				95062A652216FC160044DC33 /* LaunchScreen.storyboard in Resources */,
 				950E5FC122183D7000B022F9 /* news-placeholder.jpg in Resources */,
 				95062A622216FC160044DC33 /* Assets.xcassets in Resources */,
@@ -273,8 +288,11 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-TestTabBarApp/Pods-TestTabBarApp-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/DateToolsSwift/DateToolsSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/SwipeCellKit/SwipeCellKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwipeMenuViewController/SwipeMenuViewController.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -283,8 +301,11 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DateToolsSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeCellKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeMenuViewController.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -299,6 +320,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95E9F7622232BE4C00696271 /* SwipeCustomNewsCell.swift in Sources */,
 				95C20C672222AF750009F8AF /* TemporaryStorage.swift in Sources */,
 				959AE96A221B2753005BCB11 /* ContentTableViewController.swift in Sources */,
 				95062A7622171FC50044DC33 /* CustomNewsCell.swift in Sources */,

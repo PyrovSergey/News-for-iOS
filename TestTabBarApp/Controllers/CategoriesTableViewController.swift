@@ -85,7 +85,7 @@ class CategoriesUIViewController: SwipeMenuViewController, NetworkProtocol {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        self.performSegue(withIdentifier: "goToArticleView", sender: self)
+        self.performSegue(withIdentifier: "goToArticleViewFromCategories", sender: self)
     }
 }
 
