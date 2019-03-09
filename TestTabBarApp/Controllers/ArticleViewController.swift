@@ -13,14 +13,17 @@ import RealmSwift
 class ArticleViewController: UIViewController, WKNavigationDelegate {
     
     let realm = try! Realm()
+    var bookmarksArray : Results<Article>?
     
-    //var articleUrl: String?
     var article: Article?
+    
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var webView: WKWebView!
     @IBOutlet weak var progressLabel: UILabel!
+    @IBOutlet weak var addToBookmarksButton: UIBarButtonItem!
     
     override func viewWillAppear(_ animated: Bool) {
+        checkArticleInBookmarks(article: article)
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
@@ -35,6 +38,7 @@ class ArticleViewController: UIViewController, WKNavigationDelegate {
             webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
             webView.allowsBackForwardNavigationGestures = true
         }
+        load()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -48,7 +52,7 @@ class ArticleViewController: UIViewController, WKNavigationDelegate {
             progressLabel.isHidden = true
         } 
         if keyPath == "estimatedProgress" {
-            print(Float(webView.estimatedProgress))
+            //print(Float(webView.estimatedProgress))
             let progress = Float(webView.estimatedProgress)
             let result = (progress * 100.0)
             progressLabel.text = String("\(Int(result))%")
@@ -64,35 +68,31 @@ class ArticleViewController: UIViewController, WKNavigationDelegate {
         do {
             try realm.write {
                 realm.add(article!)
-                print("Success saving article")
+                //print("Success saving article")
+                addToBookmarksButton.isEnabled = false
             }
         } catch {
             print("Error saving article \(error)")
         }
     }
     
+    func checkArticleInBookmarks(article: Article?) {
+        //print("checkArticleInBookmarks")
+        let bookmarksArray : Results<Article> = realm.objects(Article.self)
+        //addToBookmarksButton.isEnabled = !bookmarksArray.contains(article!)
+        for bookmark in bookmarksArray {
+            if bookmark.articleUrl == article?.articleUrl {
+                addToBookmarksButton.isEnabled = false
+                //print("Find bookmarks")
+                break
+            }
+        }
+        //print(bookmarksArray.contains(article!))
+    }
     
-//    @IBAction func clickButton(_ sender: UIBarButtonItem) {
-//        self.dismiss(animated: true, completion: nil)
-//    }
-//    
-//    @IBAction func clickAddToBookmarks(_ sender: UIBarButtonItem) {
-//        do {
-//            try realm.write {
-//                realm.add(article!)
-//                print("Success saving article")
-//            }
-//        } catch {
-//            print("Error saving article \(error)")
-//        }
-//    }
-    
-    
-//    @IBAction func clickOptions(_ sender: UIBarButtonItem) {
-//        print("clickOptions")
-//        let url = NSURL(string: articleUrl!)!
-//        let items = [url]
-//        let ac = UIActivityViewController(activityItems: items, applicationActivities: nil)
-//        present(ac, animated: true)
-//    }
+    func load() {
+        //print("load")
+        bookmarksArray = realm.objects(Article.self)
+        
+    }
 }

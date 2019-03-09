@@ -12,10 +12,12 @@ import SDWebImage
 class ContentTableViewController: UITableViewController {
 
     private var newsArray = [Article]()
-    let spiner = UIActivityIndicatorView(style: .gray)
+    private let spiner = UIActivityIndicatorView(style: .gray)
+    private var emptyLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        prepareEmptyLabel()
         tableView.backgroundView = spiner
         spiner.startAnimating()
         tableView.register(UINib(nibName: "NewsCell", bundle: nil), forCellReuseIdentifier: "newsCell")
@@ -26,6 +28,7 @@ class ContentTableViewController: UITableViewController {
         newsArray = articleArray
         tableView.reloadData()
         spiner.stopAnimating()
+        emptyLabel.isHidden = articleArray.count != 0
     }
 
     // MARK: - Table view data source
@@ -45,11 +48,20 @@ class ContentTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("\(newsArray[indexPath.row].articleUrl)")
+        //print("\(newsArray[indexPath.row].articleUrl)")
         if let storyboard = self.parent?.storyboard {
             let newViewController = storyboard.instantiateViewController(withIdentifier: "ArticleViewController") as? ArticleViewController
             newViewController?.article = newsArray[indexPath.row]
             self.present(newViewController!, animated: true, completion: nil)
         }
+    }
+    
+    private func prepareEmptyLabel() {
+        emptyLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+        emptyLabel.center = CGPoint(x: 160, y: 285)
+        emptyLabel.textAlignment = .center
+        emptyLabel.text = "No news found"
+        emptyLabel.isHidden = true
+        self.view.addSubview(emptyLabel)
     }
 }

@@ -13,7 +13,7 @@ import SwiftyJSON
 
 class CategoriesUIViewController: SwipeMenuViewController, NetworkProtocol {
 
-    private let arraySwipe = ["General", "Intertainment", "Sport", "Technology", "Health", "Business"]
+    private let arraySwipe = ["General", "Entertainment", "Sport", "Technology", "Health", "Business"]
     private var arrayControllers = [String : ContentTableViewController]()
     
     var options = SwipeMenuViewOptions()
@@ -24,7 +24,7 @@ class CategoriesUIViewController: SwipeMenuViewController, NetworkProtocol {
             let vc = ContentTableViewController()
             arrayControllers[data] = vc
             vc.title = data
-            vc.setNewListCategoryAndUpdateUI(articleArray: TemporaryStorage.instace.getCategoryList(categoryName: data))
+            //vc.setNewListCategoryAndUpdateUI(articleArray: TemporaryStorage.instace.getCategoryList(categoryName: data))
             self.addChild(vc)
         }
         super.viewDidLoad()
@@ -50,22 +50,22 @@ class CategoriesUIViewController: SwipeMenuViewController, NetworkProtocol {
     // MARK: - SwipeMenuViewDelegate
     override func swipeMenuView(_ swipeMenuView: SwipeMenuView, viewWillSetupAt currentIndex: Int) {
         super.swipeMenuView(swipeMenuView, viewWillSetupAt: currentIndex)
-        print("will setup SwipeMenuView")
+        //print("will setup SwipeMenuView")
     }
     
     override func swipeMenuView(_ swipeMenuView: SwipeMenuView, viewDidSetupAt currentIndex: Int) {
         super.swipeMenuView(swipeMenuView, viewDidSetupAt: currentIndex)
-        print("did setup SwipeMenuView")
+        //print("did setup SwipeMenuView")
     }
     
     override func swipeMenuView(_ swipeMenuView: SwipeMenuView, willChangeIndexFrom fromIndex: Int, to toIndex: Int) {
         super.swipeMenuView(swipeMenuView, willChangeIndexFrom: fromIndex, to: toIndex)
-        print("will change from section\(fromIndex + 1)  to section\(toIndex + 1)")
+        //print("will change from section\(fromIndex + 1)  to section\(toIndex + 1)")
     }
     
     override func swipeMenuView(_ swipeMenuView: SwipeMenuView, didChangeIndexFrom fromIndex: Int, to toIndex: Int) {
         super.swipeMenuView(swipeMenuView, didChangeIndexFrom: fromIndex, to: toIndex)
-        print("did change from section\(fromIndex + 1)  to section\(toIndex + 1)")
+        //print("did change from section\(fromIndex + 1)  to section\(toIndex + 1)")
     }
     
     

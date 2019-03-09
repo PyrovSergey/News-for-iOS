@@ -8,6 +8,7 @@ target 'TestTabBarApp' do
   # Pods for TestTabBarApp
 pod 'SwiftyJSON', '~> 4.0'
 pod 'Alamofire', '~> 4.4'
+pod 'ReachabilitySwift'
 pod 'SDWebImage', '~> 4.0'
 pod 'SwipeMenuViewController'
 pod 'DateToolsSwift'

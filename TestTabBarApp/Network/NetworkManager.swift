@@ -14,13 +14,14 @@ import DateToolsSwift
 
 class NetworkManager {
     
-    private let swipeCategory = ["General", "Intertainment", "Sport", "Technology", "Health", "Business"]
+    private let swipeCategory = ["General", "Entertainment", "Sport", "Technology", "Health", "Business"]
     private let baseUrlTopHeadlinesAndCategory: String = "https://newsapi.org/v2/top-headlines"
     private let baseUrlForRequest: String = "https://newsapi.org/v2/everything"
     private let apiKey: String = "1d48cf2bd8034be59054969db665e62e"
     private let pageSize: String = "100"
-    
+
     static let instace = NetworkManager()
+    
     
     private var temporaryStorage: TemporaryStorage
     

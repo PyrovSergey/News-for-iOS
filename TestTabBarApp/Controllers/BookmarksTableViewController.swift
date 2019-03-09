@@ -12,11 +12,13 @@ import SwipeCellKit
 
 class BookmarksTableViewController: UITableViewController, SwipeTableViewCellDelegate {
     
-    let realm = try! Realm()
-    var bookmarksArray : Results<Article>?
+    private let realm = try! Realm()
+    private var emptyLabel: UILabel!
+    private var bookmarksArray : Results<Article>?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        prepareEmptyLabel()
         tableView.separatorStyle = .none
         tableView.register(UINib(nibName: "SwipeCustomNewsCell", bundle: nil), forCellReuseIdentifier: "swipeNewsCell")
     }
@@ -28,8 +30,8 @@ class BookmarksTableViewController: UITableViewController, SwipeTableViewCellDel
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "swipeNewsCell", for: indexPath) as! SwipeCustomNewsCell
-        cell.delegate = self
         if (bookmarksArray?.count)! > 0 {
+            cell.delegate = self
             let currentArticle: Article = bookmarksArray![indexPath.row]
             cell.sourceLabel.text = currentArticle.sourceTitle
             cell.sourceImage.sd_setImage(with: URL(string: currentArticle.sourceImageUrl), placeholderImage: UIImage(named: "news-placeholder.jpg"))
@@ -41,8 +43,10 @@ class BookmarksTableViewController: UITableViewController, SwipeTableViewCellDel
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        emptyLabel.isHidden = (bookmarksArray?.count)! != 0
         return (bookmarksArray?.count)!
     }
+    
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
         guard orientation == .right else { return nil }
@@ -74,12 +78,12 @@ class BookmarksTableViewController: UITableViewController, SwipeTableViewCellDel
         }
     }
     
-    func load() {
+    private func load() {
         bookmarksArray = realm.objects(Article.self)
         tableView.reloadData()
     }
     
-    func updateModel(at indexPath: IndexPath) {
+    private func updateModel(at indexPath: IndexPath) {
         if let bookmark = self.bookmarksArray?[indexPath.row] {
             do {
                 try self.realm.write {
@@ -89,5 +93,18 @@ class BookmarksTableViewController: UITableViewController, SwipeTableViewCellDel
                 print("Error deleting bookmark \(error)")
             }
         }
+    }
+    
+    func showEmptyLabel() {
+        emptyLabel.isHidden = false
+    }
+    
+    private func prepareEmptyLabel() {
+        emptyLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+        emptyLabel.center = CGPoint(x: 160, y: 285)
+        emptyLabel.textAlignment = .center
+        emptyLabel.text = "Bookmark list is empty"
+        emptyLabel.isHidden = true
+        self.view.addSubview(emptyLabel)
     }
 }

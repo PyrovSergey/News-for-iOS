@@ -13,17 +13,21 @@ class NewsTableViewController: UITableViewController, NetworkProtocol {
 
     @IBOutlet var newsTableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
+    private let connection = ConnectionManager.sharedInstance
+    
+    private var emptyLabel: UILabel!
 
     private var newsArray = [Article]()
     let spiner = UIActivityIndicatorView(style: .gray)
     
     override func viewWillAppear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = false
-        NetworkManager.instace.getTopHeadLinesNews(listener: self)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        prepareChangeConnectionListener()
+        prepareEmptyLabel()
         spiner.startAnimating()
         newsTableView.keyboardDismissMode = .onDrag
         searchBar.delegate = self
@@ -31,6 +35,10 @@ class NewsTableViewController: UITableViewController, NetworkProtocol {
         newsTableView.register(UINib(nibName: "NewsCell", bundle: nil), forCellReuseIdentifier: "newsCell")
         newsTableView.separatorStyle = .none
         newsTableView.backgroundView = spiner
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        checkCurrentConnection()
     }
     
     // MARK: - Table view data source
@@ -50,7 +58,6 @@ class NewsTableViewController: UITableViewController, NetworkProtocol {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //print("Selected -->> \(newsArray[indexPath.row].articleTitle)")
         performSegue(withIdentifier: "goToArticleViewFromNews", sender: self)
         newsTableView.deselectRow(at: indexPath, animated: true)
         self.newsTableView.endEditing(true)
@@ -64,6 +71,7 @@ class NewsTableViewController: UITableViewController, NetworkProtocol {
     }
     
     func successRequest(result: [Article], category: String) {
+        emptyLabel.isHidden = result.count != 0
         newsArray = result
         spiner.stopAnimating()
         newsTableView.reloadData()
@@ -71,7 +79,53 @@ class NewsTableViewController: UITableViewController, NetworkProtocol {
     
     func errorRequest(errorMessage: String) {
         print(errorMessage)
-        spiner.stopAnimating()
+        //spiner.stopAnimating()
+    }
+    
+    private func prepareEmptyLabel() {
+        emptyLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+        emptyLabel.center = CGPoint(x: 160, y: 285)
+        emptyLabel.textAlignment = .center
+        emptyLabel.text = "No news found"
+        emptyLabel.isHidden = true
+        self.view.addSubview(emptyLabel)
+    }
+    
+    private func prepareChangeConnectionListener() {
+        ConnectionManager.isReachable { _ in
+            NetworkManager.instace.getTopHeadLinesNews(listener: self)
+            //print("isReachable")
+        }
+        
+        connection.reachability.whenReachable = {
+            _ in
+            //print("whenReachable")
+            NetworkManager.instace.getTopHeadLinesNews(listener: self)
+        }
+        
+        connection.reachability.whenUnreachable = {
+            _ in
+            //print("whenUnreachable")
+            self.showLostConnectionMessage()
+        }
+    }
+    
+    private func checkCurrentConnection() {
+        ConnectionManager.isUnreachable { _ in
+            self.showLostConnectionMessage()
+            //print("isUnreachable")
+        }
+    }
+    
+    private func showLostConnectionMessage() {
+        let dialogMessage = UIAlertController(title: "Lost internet connection", message: "Check connection settings", preferredStyle: .alert)
+        let okButton = UIAlertAction(title: "OK", style: .default) { action in
+            if self.spiner.isAnimating {
+                self.checkCurrentConnection()
+            }
+        }
+        dialogMessage.addAction(okButton)
+        self.present(dialogMessage, animated: true, completion: nil)
     }
 }
 
@@ -79,6 +133,7 @@ extension NewsTableViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if let inputText = searchBar.text {
+            emptyLabel.isHidden = true
             spiner.startAnimating()
             NetworkManager.instace.getRequestDataNews(request: inputText, listener: self)
         }
@@ -88,7 +143,6 @@ extension NewsTableViewController: UISearchBarDelegate {
         if searchBar.text?.count == 0 {
             spiner.startAnimating()
             NetworkManager.instace.getTopHeadLinesNews(listener: self)
-            print("Empty search !!!")
             DispatchQueue.main.async {
                 searchBar.resignFirstResponder()
             }
