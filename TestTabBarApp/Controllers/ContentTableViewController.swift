@@ -8,26 +8,48 @@
 
 import UIKit
 import SDWebImage
+import GearRefreshControl
 
 class ContentTableViewController: UITableViewController {
 
     private var newsArray = [Article]()
     private let spiner = UIActivityIndicatorView(style: .gray)
     private var emptyLabel: UILabel!
+    private var gearRefreshControl: GearRefreshControl!
+    
+    var parentController: CategoriesUIViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareEmptyLabel()
+        
+        gearRefreshControl = GearRefreshControl(frame: self.view.bounds)
+        gearRefreshControl.addTarget(self, action: #selector(ContentTableViewController.refresh), for: UIControl.Event.valueChanged)
+        self.refreshControl = gearRefreshControl
+        gearRefreshControl.gearTintColor = .white
+        
         tableView.backgroundView = spiner
         spiner.startAnimating()
         tableView.register(UINib(nibName: "NewsCell", bundle: nil), forCellReuseIdentifier: "newsCell")
         tableView.separatorStyle = .none
     }
     
+    @objc func refresh() {
+        if let parent = parentController {
+            NetworkManager.instace.getUpdateCategoryLists(listener: parent)
+        }
+    }
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        gearRefreshControl.scrollViewDidScroll(scrollView)
+    }
+    
     func setNewListCategoryAndUpdateUI(articleArray: [Article]) {
+        print("setNewListCategoryAndUpdateUI --> \(articleArray.count)")
         newsArray = articleArray
         tableView.reloadData()
         spiner.stopAnimating()
+        gearRefreshControl.endRefreshing()
         emptyLabel.isHidden = articleArray.count != 0
     }
 

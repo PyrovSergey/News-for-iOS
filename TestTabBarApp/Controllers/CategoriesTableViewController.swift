@@ -24,6 +24,7 @@ class CategoriesUIViewController: SwipeMenuViewController, NetworkProtocol {
             let vc = ContentTableViewController()
             arrayControllers[data] = vc
             vc.title = data
+            vc.parentController = self
             //vc.setNewListCategoryAndUpdateUI(articleArray: TemporaryStorage.instace.getCategoryList(categoryName: data))
             self.addChild(vc)
         }

@@ -1,6 +1,7 @@
 PODS:
   - Alamofire (4.8.1)
   - DateToolsSwift (4.0.0)
+  - GearRefreshControl (1.0.1)
   - ReachabilitySwift (4.3.0)
   - Realm (3.13.1):
     - Realm/Headers (= 3.13.1)
@@ -17,6 +18,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 4.4)
   - DateToolsSwift
+  - GearRefreshControl
   - ReachabilitySwift
   - RealmSwift
   - SDWebImage (~> 4.0)
@@ -28,6 +30,7 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - DateToolsSwift
+    - GearRefreshControl
     - ReachabilitySwift
     - Realm
     - RealmSwift
@@ -39,6 +42,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
   DateToolsSwift: 875d97ff9e3a5d54abdd67a269b3f51c757b71ab
+  GearRefreshControl: f1d4cf97b6440bbd47d6a8a32fe2aaddd6d1e3cb
   ReachabilitySwift: 408477d1b6ed9779dba301953171e017c31241f3
   Realm: 50071da38fe079e0735e47c9f2eae738c68c5996
   RealmSwift: 8a1e6a02b7a08cd17a31e3115143fb69fe5f3fb9
@@ -47,6 +51,6 @@ SPEC CHECKSUMS:
   SwipeCellKit: 30fd6a4f8a8b8ac864ea389c8b4c8bac5ba5471a
   SwipeMenuViewController: 572a6fcd7fa95c3d744c760d5e836896817c5735
 
-PODFILE CHECKSUM: ccc69a095f273382d8d9dd24a29f33837d760a90
+PODFILE CHECKSUM: dfed956a6e6132eb6626c1c2be42946231f64fcd
 
 COCOAPODS: 1.5.3

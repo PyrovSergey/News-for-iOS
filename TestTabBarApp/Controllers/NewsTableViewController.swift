@@ -8,15 +8,18 @@
 
 import UIKit
 import SDWebImage
+import GearRefreshControl
+
 
 class NewsTableViewController: UITableViewController, NetworkProtocol {
 
     @IBOutlet var newsTableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     private let connection = ConnectionManager.sharedInstance
-    
     private var emptyLabel: UILabel!
-
+    
+    private var gearRefreshControl: GearRefreshControl!
+    
     private var newsArray = [Article]()
     let spiner = UIActivityIndicatorView(style: .gray)
     
@@ -26,6 +29,12 @@ class NewsTableViewController: UITableViewController, NetworkProtocol {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        gearRefreshControl = GearRefreshControl(frame: self.view.bounds)
+        gearRefreshControl.addTarget(self, action: #selector(NewsTableViewController.refresh), for: UIControl.Event.valueChanged)
+        self.refreshControl = gearRefreshControl
+        gearRefreshControl.gearTintColor = .white
+        
         prepareChangeConnectionListener()
         prepareEmptyLabel()
         spiner.startAnimating()
@@ -35,6 +44,18 @@ class NewsTableViewController: UITableViewController, NetworkProtocol {
         newsTableView.register(UINib(nibName: "NewsCell", bundle: nil), forCellReuseIdentifier: "newsCell")
         newsTableView.separatorStyle = .none
         newsTableView.backgroundView = spiner
+    }
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        gearRefreshControl.scrollViewDidScroll(scrollView)
+    }
+    
+    
+    @objc func refresh() {
+        newsArray.removeAll()
+        newsTableView.reloadData()
+        spiner.startAnimating()
+        NetworkManager.instace.getTopHeadLinesNews(listener: self)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -74,7 +95,9 @@ class NewsTableViewController: UITableViewController, NetworkProtocol {
         emptyLabel.isHidden = result.count != 0
         newsArray = result
         spiner.stopAnimating()
+        gearRefreshControl.endRefreshing()
         newsTableView.reloadData()
+        //print("successRequest!!!!")
     }
     
     func errorRequest(errorMessage: String) {
@@ -134,6 +157,8 @@ extension NewsTableViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if let inputText = searchBar.text {
             emptyLabel.isHidden = true
+            newsArray.removeAll()
+            newsTableView.reloadData()
             spiner.startAnimating()
             NetworkManager.instace.getRequestDataNews(request: inputText, listener: self)
         }
@@ -141,6 +166,8 @@ extension NewsTableViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchBar.text?.count == 0 {
+            newsArray.removeAll()
+            newsTableView.reloadData()
             spiner.startAnimating()
             NetworkManager.instace.getTopHeadLinesNews(listener: self)
             DispatchQueue.main.async {

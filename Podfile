@@ -14,4 +14,5 @@ pod 'SwipeMenuViewController'
 pod 'DateToolsSwift'
 pod 'RealmSwift'
 pod 'SwipeCellKit'
+pod 'GearRefreshControl'
 end
